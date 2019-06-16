@@ -1,0 +1,76 @@
+﻿@model GamerRadar.ViewModels.UserGames.UserGamesViewModel
+
+@{
+    ViewBag.Title = "Result";
+}
+
+@if (Model.GameId != null)
+{
+    <h2 class="capture-smallz-header">
+        People that are playing:
+        <a href='@Url.Action("Details", "Games", new {id = Model.GameId})' class="capture-smallz-link" style="font-size: 30px">
+            @Html.DisplayName(Model.GameName)
+        </a>
+    </h2>
+}
+else
+{
+    <h2 class="capture-smallz-header">We are sorry! Game was not found! Contact us.</h2>
+}
+
+@using (Html.BeginForm("Result", "UserGames", FormMethod.Post))
+{
+    foreach (var item in @Model.UserGameViewModels)
+    {
+        <div class="capture-smallz col-md-4" style ="margin-left: -15px">
+            <h2>@Html.DisplayFor(modelItem => item.UserGame.User.UserName)</h2>
+            <p>
+                @Html.DisplayNameFor(model => model.UserGameViewModels.First().Gender)
+                :
+                @Html.DisplayFor(modelItem => item.Gender)
+                <br />
+                @Html.DisplayNameFor(model => model.UserGameViewModels.First().Age)
+                :
+                @Html.DisplayFor(modelItem => item.Age)
+                <br />
+                @Html.DisplayNameFor(model => model.UserGameViewModels.First().GameTime)
+                :
+                @Html.DisplayFor(modelItem => item.GameTime)
+                <br />
+                @Html.DisplayNameFor(model => model.UserGameViewModels.First().GameplayType)
+                :
+                @Html.DisplayFor(modelItem => item.GameplayType)
+                <br />
+                @Html.DisplayNameFor(model => model.UserGameViewModels.First().Location)
+                :
+                @Html.DisplayFor(modelItem => item.Location)
+                <br />
+                @Html.DisplayNameFor(model => model.UserGameViewModels.First().Distance)
+                :
+                @Html.DisplayFor(modelItem => item.Distance) km away from you
+                <br />
+                <a href="mailto:@Html.DisplayTextFor(model => model.UserGameViewModels.First().UserGame.User.Email)" class="capture-smallz-link">Message me!</a>
+            </p>
+        </div>
+    }
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="capture-smallz-link">
+        @Html.ActionLink("Back to search", "Search")
+    </div>
+
+}

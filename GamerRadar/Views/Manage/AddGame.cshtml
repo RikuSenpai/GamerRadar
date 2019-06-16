@@ -1,0 +1,51 @@
+﻿@model GamerRadar.ViewModels.UserGames.MyNewGameViewModel
+
+@{
+    ViewBag.Title = "Add Game";
+}
+
+<br />
+<h2 class="capture-smallz">Add new game to favourites</h2>
+
+<div class="capture-smallz">
+    <hr />
+    <dl class="dl-horizontal">
+        
+        @using (Html.BeginForm("AddGame", "Manage", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+        {
+            <dt style="margin-left: 5px">
+                @Html.DisplayNameFor(model => model.GameName)
+            </dt>
+
+            <dd style="padding-left: 15px">
+                @Html.DropDownListFor(model => model.SelectedGameId, Model.Games, htmlAttributes: new {@class = "form-control"})
+            </dd>
+
+
+            @Html.ValidationSummary("", new {@class = "text-danger"})
+            <div class="form-group capture-smallz">
+                @Html.LabelFor(m => m.GameTime, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(m => m.GameTime, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.GameTime, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="form-group capture-smallz">
+                @Html.LabelFor(m => m.GameplayType, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(m => m.GameplayType, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.GameplayType, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group capture-smallz">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Add game"/>
+                </div>
+            </div>
+        }
+    </dl>
+</div>
+<p class="capture-smallz-link">
+    @Html.ActionLink("Back", "Games")
+</p>

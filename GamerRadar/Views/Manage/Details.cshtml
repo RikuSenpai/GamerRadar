@@ -1,0 +1,56 @@
+﻿@model GamerRadar.ViewModels.UserGames.MyGameViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<br />
+<h2 class="capture-smallz">@Html.DisplayFor(model => model.GameName) details</h2>
+
+@using (Html.BeginForm("Details", "Manage", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="capture-smallz">
+        <hr/>
+        <dl class="dl-horizontal">
+            <dt style="margin-left: 5px">
+                @Html.DisplayNameFor(model => model.GameName)
+            </dt>
+
+            <dd style="padding-left: 15px">
+                @Html.DisplayFor(model => model.GameName)
+            </dd>
+            
+                @Html.TextBoxFor(model => model.GameName, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.GameId, new { @class = "hidden" })
+            @Html.TextBoxFor(model => model.UserGameId, new { @class = "hidden" })
+
+
+            @Html.ValidationSummary("", new {@class = "text-danger"})
+            <div class="form-group capture-smallz">
+                @Html.LabelFor(m => m.GameTime, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(m => m.GameTime, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.GameTime, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="form-group capture-smallz">
+                @Html.LabelFor(m => m.GameplayType, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    @Html.EnumDropDownListFor(m => m.GameplayType, htmlAttributes: new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.GameplayType, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group capture-smallz">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Save changes"/>
+                </div>
+            </div>
+        </dl>
+    </div>
+
+    <p class="capture-smallz-link">
+        @Html.ActionLink("Back", "Games")
+    </p>
+}

@@ -1,0 +1,34 @@
+﻿@model GamerRadar.ViewModels.UserGames.UserGamesSearchViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<script type="text/javascript">
+
+    function ShowPopUp() {
+
+        window.open('/QRCode/Index/', "wndPopUp", 'width=725, height=360, left=100, top=100, resizable=no');
+    }
+</script>
+
+<div class="capture-smallz-header center" align="center">
+    @using (Html.BeginForm())
+    {
+        <h1>Select game:</h1>
+        <div>
+            @Html.DropDownListFor(model => model.SelectedGameId, Model.Games, htmlAttributes: new { @class = "form-control" })
+        </div>
+
+        <div style="padding-top: 20px">
+            <input type="submit" name="submit" value="Search" class="btn btn-default" style="background-color: #189337; color: #121619; border-color: #132a13; font-size: 18px" />
+        </div>
+
+        <div>
+            <h1>or scan QR code:</h1>
+        </div>
+        <div>
+            <input type="button" id="btnSave" value="Scan QR code" onclick="ShowPopUp();" class="btn btn-default" style="background-color: #189337; color: #121619; border-color: #132a13; font-size: 18px" />
+        </div>
+    }
+</div>

@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_QRCodeLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @section scripts
+{
+        <script src="@Url.Content("~/Scripts/jquery.webcam.js")">
+        </script>
+        <script type="text/javascript">
+        $("#Camera").webcam({
+            width: 320,
+            height: 240,
+            mode: "save",
+            swffile: "@Url.Content("~/Scripts/jscam.swf")",
+            onSave: function () {
+                HandleCapture();
+            },
+            onCapture: function () {
+                webcam.save("@Url.Content("~/QRCode/Capture")/");
+            }
+        });
+        </script>
+    }
+    <div style="margin: 0 auto; width: 725px; text-align: center" class="capture-smallz">
+        <div style="float: left; border: 4px solid #ccc; padding: 5px">
+            <div id="Camera" style="height: 240px;">
+            </div>
+            <br>
+            <input type="button" value="Capture" onclick="webcam.capture();" />
+        </div>
+        <div style="float: left;margin-left: 20px;border: 4px solid #ccc;padding: 5px;height: 320px;width: 338px;">
+            <img id="show" style="width: 320px; height: 240px;" src="~/Images/notScannedQRCode.png" />
+            <br>
+            <input id="Process" type="Submit" onclick="HandleProcess();" value="Process" style="margin-top: 29px" />
+        </div>
+    </div>
+    <br />
+    <br />
+}
+
+<script type="text/javascript">
+    window.onload = load();
+
+    function load() {
+        debugger;
+        document.getElementById('Process').disabled = true;
+    }
+</script>
+
+<script type="text/javascript">
+    function HandleCapture() {
+        $.ajax({
+            type: 'POST',
+            url: ("@Url.Content("~/QRCode/HandleCapture")/"),
+            dataType: 'json',
+            success: function(data) {
+                $("#show").attr("src", data[0]);
+                document.getElementById('Process').disabled = false;
+                alert(data[1]);
+            }
+        });
+    }
+
+    function HandleProcess() {
+        debugger;
+        var src = $('img').attr('src');
+        src_array = src.split('/');
+        src = src_array[4];
+        if (src != "") {
+            $.ajax({
+                type: 'POST',
+                url: ("@Url.Content("~/QRCode/Index")/"),
+                dataType: 'json',
+                data: { Imagename: src },
+                success: function() {}
+            });
+            window.opener.location.href = "http://localhost:57136/UserGames/Result";
+            self.close();
+        }
+    }
+</script>

@@ -1,0 +1,94 @@
+﻿@using GamerRadar.Models;
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div style="margin-top: 5px" class="center">
+    <div id="container">
+        <canvas id="iconCanvas" height="300" width="350">
+            <script>
+                var canvas = document.getElementById('iconCanvas');
+                var context = canvas.getContext('2d');
+                var imageObj = new Image();
+
+                imageObj.onload = function () {
+                    context.drawImage(imageObj, 20, 50);
+                };
+
+                var canvasWidth = canvas.width;
+                var canvasHeight = canvas.height;
+
+                var angle = 0;
+
+                var requestAnimationFrame = window.requestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.msRequestAnimationFrame;
+
+                function drawCircles() {
+
+                    imageObj.src = '../Images/icon.png';
+
+                    context.beginPath();
+
+                    var radius = 2 + 10 * Math.abs(Math.cos(angle));
+                    context.arc(100, 220, radius, 0, Math.PI * 2, false);
+                    context.closePath();
+                    context.arc(150, 250, radius, 0, Math.PI * 2, false);
+                    context.closePath();
+                    context.arc(130, 135, radius, 0, Math.PI * 2, false);
+                    context.closePath();
+                    context.arc(220, 120, radius, 0, Math.PI * 2, false);
+                    context.closePath();
+
+                    context.fillStyle = "#FF1329";
+                    context.fill();
+
+                    angle += Math.PI / 64;
+                    requestAnimationFrame(drawCircles);
+                }
+
+                drawCircles();
+          </script>
+        </canvas>
+    </div>
+</div>
+
+<br />
+
+<h1 class="capture-smallz-header">Technologies used in GamerRadar application:</h1>
+<ul class="capture-smallz">
+    <li>
+        storing / retrieving data on server with .NET and JSON,
+    </li>
+    <li>
+        multiple users logging with social media i.e. Facebook / Google+,
+    </li>
+    <li>
+        canvas animation / interaction,
+    </li>
+    <li>
+        video from device camera,
+    </li>
+    <li>
+        an api to YouTube (to display game trailers,
+        because .NET API doesn't have any interesting endpoints that this project could benefit from),
+    </li>
+    <li>
+        geolocation / maps (to calculate distance between users),
+    </li>
+    <li>
+        sound, video and QR codes.
+    </li>
+</ul>
+
+<p class="capture-smallz" align="justify" style="padding-bottom: 15px;">
+    Multiple users can use GamerRadar application at the same time all around the world
+    and all the data is safely stored in the database using Entity Framework!
+    Integration with different webcam devices was implemented so that users on different machines can scan their QR codes.
+    Firstly webcam starts videoing and then after clicking a button a screenshot is taken to interpret the QR code.
+    YouTube videos have also been integrated with the website for users to watch the game trailers.
+    Google Maps API is playing a big part in the GamerRadar application.
+    It allows to set the players location and calculate distance between them, so they can decide if they want to match up!
+</p>

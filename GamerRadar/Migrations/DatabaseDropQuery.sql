@@ -1,0 +1,10 @@
+﻿drop table UserGames
+drop table Games
+drop table Developers
+drop table Publishers
+drop table AspNetUserLogins
+drop table AspNetUserClaims
+drop table AspNetUserRoles
+drop table AspNetRoles
+drop table AspNetUsers
+drop table __MigrationHistory

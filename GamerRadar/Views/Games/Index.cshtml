@@ -1,0 +1,59 @@
+﻿@model IEnumerable<GamerRadar.ViewModels.GameViewModel>
+
+@{
+    ViewBag.Title = "Games";
+}
+
+<h2 class="capture-smallz-header">Games</h2>
+
+<p class="capture-smallz-link">
+    @Html.ActionLink("Your favourite game is missing? Let us know!", "Create")
+</p>
+<table class="table">
+    <tr class="capture-smallz-header-link">
+        <td>
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.SortByName })
+        </td>
+        <td>
+            @Html.ActionLink("Release Date", "Index", new { sortOrder = ViewBag.SortByDate })
+        </td>
+        <td>
+            @Html.ActionLink("Developer", "Index", new { sortOrder = ViewBag.SortByDeveloper })
+        </td>
+        <td>
+            @Html.ActionLink("Publisher", "Index", new { sortOrder = ViewBag.SortByPublisher })
+        </td>
+        <td>
+            @Html.ActionLink("Pegi", "Index", new { sortOrder = ViewBag.SortByPegi })
+        </td>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="capture-smallz">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                <img src="@Url.Content(@item.PegiImagePath)" />
+            </td>
+            <td class="capture-smallz-link">
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+
+<br/>
+<br />
+<br />

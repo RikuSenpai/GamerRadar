@@ -1,0 +1,75 @@
+﻿@model GamerRadar.ViewModels.UserGames.MyGamesViewModel
+
+@{
+    ViewBag.Title = "My Games";
+}
+
+<h2 class="capture-smallz-header">@ViewBag.Title</h2>
+
+<ul class="nav nav-tabs capture-smallz-link">
+    <li class="active">
+        <a href="#tabBasic" data-toggle="tab">Basic</a>
+    </li>
+
+    <li>
+        <a href="#tabAdvanced" data-toggle="tab">Advanced</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="tabBasic">
+
+        @if (Model != null && Model.MyGameViewModels.Count() != 0)
+        {
+            <table class="table">
+                <tr class="capture-smallz-header-link">
+                    <td>
+                        @Html.ActionLink("Name", "Games", new { sortOrder = ViewBag.SortByName })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Game Time", "Games", new { sortOrder = ViewBag.SortByGameTime })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Gameplay Type", "Games", new { sortOrder = ViewBag.SortByGameplayType })
+                    </td>
+                </tr>
+
+                @foreach (var item in Model.MyGameViewModels)
+                {
+                    <tr class="capture-smallz">
+                        <td>
+                            <a href='@Url.Action("Details", "Manage", new {id = item.UserGameId})' class="capture-smallz-link">
+                                @Html.DisplayFor(modelItem => item.GameName)
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GameTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GameplayType)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Remove", "Delete", new { id = item.UserGameId })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+        }
+        <br />
+        <div>
+            @if (Model.MyGameViewModels.Count() < 5)
+            {
+                <a href='@Url.Action("AddGame", "Manage")' class="capture-smallz-link">Add new game</a>
+            }
+            else
+            {
+                <p class="capture-smallz-link">You exceeded basic account limitation. You can add maximum 5 games.</p>
+            }
+        </div>
+    </div>
+    <div class="tab-pane fade" id="tabAdvanced">
+        <br />
+        <a href='@Url.Action("Games", "Manage")' class="capture-smallz-link">This function is currently under development and available for future Premium users. Please check in later.</a>
+    </div>
+</div>
